@@ -23,13 +23,12 @@ if [ -n "${TRAVIS_TAG}" ]; then
 
     # Generate QRCode and overwrite the defaullt one
     npm install -g qrcode
-    qrcode -t svg -o ./slides/images/qrcode.svg "${GH_PAGE_BASE_URL}/${TRAVIS_TAG}"
+    rm -f ./dist/images/qrcode.svg
+    qrcode -t svg -o ./dist/images/qrcode.svg "${GH_PAGE_BASE_URL}/${TRAVIS_TAG}"
 else
     DEPLOY_DIR="./docs"
 fi
 set -u
 
-
-
 rm -rf "${DEPLOY_DIR}"
-mv ./dist "${DEPLOY_DIR}"
+cp -r ./dist "${DEPLOY_DIR}"
