@@ -28,4 +28,4 @@ else
 fi
 set -u
 
-cp -r ./dist "${DEPLOY_DIR}"
+cp -r ./dist/* "${DEPLOY_DIR}/"
