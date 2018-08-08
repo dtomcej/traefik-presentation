@@ -37,4 +37,11 @@ clean:
 	@docker-compose down -v --remove-orphans
 	rm -rf $(CURDIR)/dist/*
 
-.PHONY: all build verify verify-links verify-w3c serve deploy
+qrcode:
+	@docker-compose up --build --force-recreate qrcode
+
+chmod:
+	@docker run --rm -t -v $(CURDIR):/app \
+		alpine chown -R "$$(id -u):$$(id -g)" /app
+
+.PHONY: all build verify verify-links verify-w3c serve deploy qrcode chmod

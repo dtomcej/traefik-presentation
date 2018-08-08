@@ -19,6 +19,7 @@
         "gulp-ignore": "2.0.2",
         "gulp-rename": "1.4.0",
         "gulp-sass": "^4.0.1",
-        "merge-stream": "1.0.1"
+        "merge-stream": "1.0.1",
+        "qrcode": "1.2.2"
     }
 }

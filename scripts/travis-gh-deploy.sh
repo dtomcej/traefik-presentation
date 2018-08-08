@@ -22,14 +22,13 @@ if [ -n "${TRAVIS_TAG}" ]; then
     DEPLOY_DIR="./docs/${TRAVIS_TAG}"
 
     # Generate QRCode and overwrite the defaullt one
-    npm install -g qrcode
-    qrcode -t svg -o ./slides/images/qrcode.svg "${GH_PAGE_BASE_URL}/${TRAVIS_TAG}"
+    export PRESENTATION_URL="${GH_PAGE_BASE_URL}/${TRAVIS_TAG}"
+    make chmod
+    make qrcode
 else
     DEPLOY_DIR="./docs"
 fi
 set -u
 
-
-
 rm -rf "${DEPLOY_DIR}"
-mv ./dist "${DEPLOY_DIR}"
+cp -r ./dist "${DEPLOY_DIR}"
