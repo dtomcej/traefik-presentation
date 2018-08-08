@@ -25,15 +25,12 @@ fi
 # If a tag triggered the deploy, we deploy to a folder having the tag name
 # otherwise we are on master and we deploy into latest
 set +u
+DEPLOY_DIR="${DOCS_DIR}/${TRAVIS_TAG}"
 if [ -n "${TRAVIS_TAG}" ]; then
-    DEPLOY_DIR="${DOCS_DIR}/${TRAVIS_TAG}"
-
     # Generate QRCode and overwrite the default one
     make chmod
     make qrcode
-else
-    DEPLOY_DIR="${DOCS_DIR}"
 fi
 set -u
 
-cp -r ./dist/* "${DEPLOY_DIR}/"
+rsync -av ./dist/ "${DEPLOY_DIR}"
