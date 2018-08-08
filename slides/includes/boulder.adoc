@@ -4,7 +4,9 @@
 * Dynamic certificate generation
 * Runs in Docker
 * Complies with ACME spec
-* Leverage Traefik's ACME client
+* Leverage Træfik's ACME client
+
+image::boulder.jpg["Boulder"]
 
 [{invert}]
 == Our Demo Boulder Image

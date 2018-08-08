@@ -1,12 +1,12 @@
 [{invert}]
-= Traefik Glue
+= Træfik Glue
 
-* Traefik is the glue that binds these components together
-* We add our intermediate to the trust store in the traefik image
+* Træfik is the glue that binds these components together
+* We add our intermediate to the trust store in the Træfik image
 ** We bake it in, so we don't have to manage files
 ** It can also be added as a separate file, and specified via CLI arg
-* Traefik will connect to boulder, and will use generated frontend certs
-* Traefik will be able to use trusted certificates to connect to backend pod IPs
+* Træfik will connect to boulder, and will use generated frontend certs
+* Træfik will be able to use trusted certificates to connect to backend pod IPs
 
 [{invert}]
 == Benifits
