@@ -2,7 +2,7 @@
 module.exports = function (gulp, plugins, current_config) {
     'use strict';
     ////////////////////////// Managing Our ToC with custom tocify script and its deps
-    gulp.task('prepare:js-revealjs', function () {
+    gulp.task('prepare:revealjs', function () {
         var baseRevealJSPath = current_config.nodeModulesDir + '/reveal.js',
             revealJsDestDir = current_config.distDir + '/reveal.js',
             mainRevealCss = gulp.src(baseRevealJSPath + '/css/reveal.css')
@@ -41,7 +41,7 @@ module.exports = function (gulp, plugins, current_config) {
     // We copy in revealjs, because we cannot set it up on revealjs
     // so.. reusing. cf. https://github.com/hakimel/reveal.js/#dependencies
     /////////////////
-    gulp.task('prepare:js-highlightjs', function () {
+    gulp.task('prepare:highlightjs', function () {
         var highlightNodeModule = current_config.nodeModulesDir + '/highlightjs',
             highlightDestDir = current_config.distDir + '/reveal.js/plugin/highlight',
             highlightjsStyleRename = gulp.src(highlightNodeModule + '/styles/*.css')
@@ -56,5 +56,17 @@ module.exports = function (gulp, plugins, current_config) {
 
         return plugins.mergeStreams(highlightjsStyleRename, highlightScriptMinified);
 
+    });
+
+    ////////////////////////////// Managing fontawesome and dependencies
+    gulp.task('prepare:fontawesome', function () {
+
+        var fontAwesomeCss = gulp.src(current_config.nodeModulesDir + '/font-awesome/css/**/*')
+            .pipe(gulp.dest(current_config.distDir + '/styles/'));
+
+        var fontAwesomeFonts = gulp.src(current_config.nodeModulesDir + '/font-awesome/fonts/**/*')
+            .pipe(gulp.dest(current_config.distDir + '/fonts/'));
+
+        return plugins.mergeStreams(fontAwesomeCss, fontAwesomeFonts);
     });
 };
