@@ -8,29 +8,15 @@ image::qrcode.svg["QRCode to this presentation",height=150]
 [.small]
 Presentation available at link:{presentationUrl}[]
 
-// //// Speaker Slide and Company slide
+[{invert}]
 == Whoami
 
-* Damien DUPORTAL:
-** link:https://traefik.io/[Træfik]'s Developer Advocate @
-link:https://containo.us/[Containous] and Freelancer
-** Former Training Engineer @ CloudBees
-* link:https://twitter.com/DamienDuportal[icon:twitter[] @DamienDuportal]
-* link:https://github.com/dduportal[icon:github[] dduportal]
+* Daniel Tomcej:
+** Developer and Kubernetes SME @ link:https://containo.us/[Containous]
+* link:https://twitter.com/daniel_tomcej[icon:twitter[] @daniel_tomcej]	
+* link:https://github.com/dtomcej[icon:github[] dtomcej]	
 
-image::damien.jpg[height=200]
-
-== Containous
-
-* link:https://containo.us[]
-* We Believe in Open Source
-* We Deliver Træfik
-* Commercial Support for Træfik
-* 12 people, 90% technical experts
-
-image::containous-logo.png["Containous Logo"]
-// //// end of Speaker Slide and Company slide
-
+image::Daniel.jpg[height=256]
 
 // ///////////////////////
 // Include chapter here with a blank line between each
@@ -38,13 +24,29 @@ image::containous-logo.png["Containous Logo"]
 // ///////////////////////
 :leveloffset: +1
 
-include::./includes/traefik-project.adoc[]
+include::./includes/containous.adoc[]
 
-include::./includes/why-traefik.adoc[]
+include::./includes/kubernetes-rundown.adoc[]
 
-include::./includes/traefik-core-concepts.adoc[]
+include::./includes/e2e-encryption.adoc[]
 
-include::./includes/more-capabilities.adoc[]
+include::./includes/demo-overview.adoc[]
+
+include::./includes/hostname-validation.adoc[]
+
+include::./includes/trust-validation.adoc[]
+
+include::./includes/solution.adoc[]
+
+include::./includes/boulder.adoc[]
+
+include::./includes/minica.adoc[]
+
+include::./includes/traefik-glue.adoc[]
+
+include::./includes/demo.adoc[]
+
+include::./includes/production.adoc[]
 
 :leveloffset: -1
 

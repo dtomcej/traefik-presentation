@@ -1,0 +1,18 @@
+
+[{invert}]
+= Kubernetes Rundown
+
+Assumed Knowledge:
+
+* Deployments/Services/Pods
+* Ingress Basics (Traffic Flow, Bypassing the service layer)
+* Kubectl and tooling
+
+image::kubernetes.png["Kubernetes",height=200]
+
+[{invert}]
+== This Project
+
+* link:https://github.com/dtomcej/meetup2018[]
+* All code is available
+* All images are publically available, and open source

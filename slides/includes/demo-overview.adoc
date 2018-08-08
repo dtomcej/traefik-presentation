@@ -1,0 +1,23 @@
+[{invert}]
+= Demo Overview Diagram
+
+This is what I will be showing with the demo
+
+image::Demo-Overview.png[Demo]
+
+[{invert}]
+== Goals of Demo
+
+. No TLS Security disabled
+. No TLS Verification disabled
+. No Configuration files
+. No Manual Certificate file management (Outside of trusting the root)
+
+[{invert}]
+== Parts of a TLS Connection
+
+* Connection Request is made
+* Certificate is returned:
+** Hostname Validation
+** Trust Chain Validation
+* Then request is sent

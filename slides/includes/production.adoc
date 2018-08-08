@@ -1,0 +1,10 @@
+[{invert}]
+= Adapting for Production
+
+* LetsEncrypt already works for frontend certificate generation in production
+* Using MiniCA for internal generation is production-ready
+** Using a custom trust chain is completely production acceptable, assuming:
+*** Roots are protected
+*** Roots are stored for safe keeping
+*** Intermediates are issued for a year or so
+*** Leaf certificates are issued for a smaller (90 day) lifetime

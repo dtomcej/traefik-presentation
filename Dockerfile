@@ -1,6 +1,6 @@
 FROM node:10.8-alpine
 
-LABEL Maintainers="Damien DUPORTAL<damien.duportal@gmail.com>"
+LABEL Maintainers="Daniel Tomcej<daniel.tomcej@gmail.com>"
 
 # Install Global dependencies and gulp 4.x globally
 RUN apk add --no-cache \

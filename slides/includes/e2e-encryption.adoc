@@ -1,0 +1,23 @@
+= End to End Encryption
+
+image::why-mr-anderson.jpg["Why, Mr Anderson?",width=800]
+
+Why, Mr Anderson?
+
+== Who needs it?
+
+* PCI-DSS Compliance
+* HIPAA Compliance
+* SSAE Compliance
+* gRPC Functionality
+
+image::security.jpg[Security]
+
+== Issues with End to End TLS
+
+* Certificate Generation
+** Especially in dynamic environments
+* File Storage
+** Configuration files, and mounting certificates
+* DNS records
+** For certificate common names, and backend requests
