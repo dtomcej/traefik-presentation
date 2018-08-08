@@ -20,6 +20,6 @@
 :invert: state=invert,background-color="rgb(226, 226, 226)"
 // Enable font awesome, and use it from local resources (instead of CDN)
 :icons: font
-:stylesdir: /styles
+:stylesdir: styles
 :iconfont-remote!:
 :iconfont-name: font-awesome.min
