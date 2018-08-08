@@ -1,0 +1,15 @@
+= Why use MiniCA?
+
+* Dynamic certificate generation
+* Written by a member of the LetsEncrypt Team
+* Can use our intermediate to sign certificates
+* Runs in Docker
+* Can run in our pod after the IP and Hostname have been assigned by the kubernetes API
+
+== Our Demo MiniCA Image
+
+* Runs as an init container, and generates our certificates using the downward API
+* Stores the issued certificates in a volume
+* This volume is then mounted and usable by other containers in our pod
+* The signing keys are not available once the init container is gone
+* IP SANs are generated, so the certs are valid for the pod IP

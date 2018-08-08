@@ -5,7 +5,7 @@
 Assumed Knowledge:
 
 * Deployments/Services/Pods
-* Ingress Basics (Traffic Flow)
+* Ingress Basics (Traffic Flow, Bypassing the service layer)
 * Kubectl and tooling
 
 image::kubernetes.png["Kubernetes",height=200]

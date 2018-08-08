@@ -1,0 +1,15 @@
+[{invert}]
+= Why use Boulder?
+
+* Dynamic certificate generation
+* Runs in Docker
+* Complies with ACME spec
+* Leverage Traefik's ACME client
+
+[{invert}]
+== Our Demo Boulder Image
+
+* We remap duplicate services to avoid portmapping issues in kubernetes
+** VA, SA, Publisher, etc
+* We mount our custom root + intermediate certs (Baked in)
+* Now we can issue certificates signed with our trust chain

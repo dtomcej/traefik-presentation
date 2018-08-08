@@ -9,3 +9,19 @@ image::never-send-a-human.jpg["Agent",height=400]
 ** Generated, and stored for safe keeping
 ** Used only for signing intermediates
 * Use intermediates for all day-to-day signing
+
+== How are we going to achieve this?
+
+* Two parts:
+** Front End (Client facing) TLS
+*** Boulder
+** Back End (Pod Facing) TLS
+*** MiniCA
+
+== Demo Script
+
+* Generates Certificates
+** Root CA
+** Intermediates
+** Browser bundle for importing to client trust
+* Bakes intermediates into images (Root also in case of Boulder)
