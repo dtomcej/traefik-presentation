@@ -1,9 +1,11 @@
-version: '3.4'
+version: '3.6'
 
 # Reusable options
 x-slides-base: &slides-base
   build: ./
   image: traefik-presentation-slides-builder
+  environment:
+      - PRESENTATION_URL=${PRESENTATION_URL}
   volumes:
       - ./slides:/app/slides
       - ./dist:/app/dist

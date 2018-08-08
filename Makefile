@@ -1,7 +1,12 @@
 
+# If no tag present, then the URL sends you to the root of the gh-page
+# aka. "https://dduportal.github.io/traefik-presentation/" with a trailing slash
+PRESENTATION_URL ?= https://dduportal.github.io/traefik-presentation/$(TRAVIS_TAG)
+export PRESENTATION_URL
+
 all: clean build verify
 
-# Generate docuemnts inside a container, all *.adoc in parallel
+# Generate documents inside a container, all *.adoc in parallel
 build: clean
 	@docker-compose up \
 		--build \
@@ -17,7 +22,7 @@ verify-links:
 		18fgsa/html-proofer \
 			--check-html \
 			--http-status-ignore "999" \
-			--url-ignore "/localhost:/,/127.0.0.1:/" \
+			--url-ignore "/localhost:/,/127.0.0.1:/,/$(PRESENTATION_URL)/" \
         	/dist/index.html
 
 verify-w3c:
@@ -33,9 +38,9 @@ shell:
 deploy:
 	@bash $(CURDIR)/scripts/travis-gh-deploy.sh
 
-clean:
+clean: chmod
 	@docker-compose down -v --remove-orphans
-	rm -rf $(CURDIR)/dist/*
+	rm -rf $(CURDIR)/dist $(CURDIR)/docs
 
 qrcode:
 	@docker-compose up --build --force-recreate qrcode

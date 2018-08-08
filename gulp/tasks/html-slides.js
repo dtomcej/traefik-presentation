@@ -13,6 +13,7 @@ module.exports = function (gulp, plugins, current_config) {
                         attributes: {
                             'revealjsdir': 'node_modules/reveal.js@',
                             'docinfosPath': current_config.docinfosPath,
+                            'presentationUrl': process.env.PRESENTATION_URL,
                         },
                         to_dir: current_config.distDir,
                     }
