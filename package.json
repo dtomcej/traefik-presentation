@@ -5,7 +5,8 @@
     "repository": "https://github.com/dduportal/traefik-presentation",
     "dependencies": {
         "highlightjs": "^9.10.0",
-        "reveal.js": "3.7.0"
+        "reveal.js": "3.7.0",
+        "@fortawesome/fontawesome-free": "^5.2.0"
     },
     "devDependencies": {
         "asciidoctor-reveal.js": "1.1.3",
