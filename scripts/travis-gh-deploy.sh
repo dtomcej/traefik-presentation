@@ -28,5 +28,4 @@ else
 fi
 set -u
 
-rm -rf "${DEPLOY_DIR}"
 cp -r ./dist "${DEPLOY_DIR}"
