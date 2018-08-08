@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Træfik: The Cloud Native Edge Router</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="./reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="./styles/build.css" id="theme"><link rel="stylesheet" href="/styles/font-awesome.min.css"><link href="./reveal.js/plugin/highlight/styles/github.min.css" rel="stylesheet"><script>var link = document.createElement( 'link' );
+link.rel = 'stylesheet';
+link.type = 'text/css';
+link.href = window.location.search.match( /print-pdf/gi ) ? "./reveal.js/css/print/pdf.css" : "./reveal.js/css/print/paper.css";
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="./reveal.js/lib/js/html5shiv.js"></script><![endif]--></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title"><h1>Træfik</h1><h2>The Cloud Native Edge Router</h2><div class="preamble"><div class="imageblock" style=""><img src="images/traefik-logo-white-background.png" alt="Træfik's Logo" height="150"></div>
+<div class="imageblock" style=""><img src="images/qrcode.svg" alt="QRCode to this presentation" height="150"></div>
+<div class="paragraph small"><small>Presentation available at <a href="https://dtomcej.github.io/traefik-presentation/" class="bare">https://dtomcej.github.io/traefik-presentation/</a></small></div></div></section>
+<section id="whoami" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Whoami</h2><div class="ulist"><ul><li><p>Daniel Tomcej:</p><div class="ulist"><ul><li><p>Developer and Kubernetes SME @ <a href="https://containo.us/">Containous</a></p></li></ul></div></li><li><p><a href="https://twitter.com/daniel_tomcej"><span class="icon"><i class="fa fa-twitter"></i></span> @daniel_tomcej</a></p></li><li><p><a href="https://github.com/dtomcej"><span class="icon"><i class="fa fa-github"></i></span> dtomcej</a></p></li></ul></div>
+<div class="imageblock" style=""><img src="images/Daniel.jpg" alt="Daniel" height="256"></div></section>
+<section><section id="containous"><h2>Containous</h2><div class="ulist"><ul><li><p><a href="https://containo.us" class="bare">https://containo.us</a></p></li><li><p>We Believe in Open Source</p></li><li><p>We Deliver Træfik</p></li><li><p>Commercial Support for Træfik</p></li><li><p>12 people, 90% technical experts</p></li></ul></div><div class="imageblock" style=""><img src="images/containous-logo.png" alt="Containous Logo"></div></section><section id="trfik"><h2>Træfik</h2><div class="ulist"><ul><li><p>Cloud Native Edge Router</p></li><li><p>Native Ingress Controller</p></li><li><p>LetsEncrypt Integration</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/traefik-logo-white-background.png" alt="Træfik's Logo" height="150"></div></section></section>
+<section><section id="kubernetes_rundown" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Kubernetes Rundown</h2><div class="paragraph"><p>Assumed Knowledge:</p></div><div class="ulist"><ul><li><p>Deployments/Services/Pods</p></li><li><p>Ingress Basics (Traffic Flow, Bypassing the service layer)</p></li><li><p>Kubectl and tooling</p></li></ul></div><div class="imageblock" style=""><img src="images/kubernetes.png" alt="Kubernetes" height="200"></div></section><section id="this_project" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>This Project</h2><div class="ulist"><ul><li><p><a href="https://github.com/dtomcej/meetup2018" class="bare">https://github.com/dtomcej/meetup2018</a></p></li><li><p>All code is available</p></li><li><p>All images are publically available, and open source</p></li></ul></div></section></section>
+<section><section id="end_to_end_encryption"><h2>End to End Encryption</h2><div class="imageblock" style=""><img src="images/why-mr-anderson.jpg" alt="Why, Mr Anderson?" width="800"></div><div class="paragraph"><p>Why, Mr Anderson?</p></div></section><section id="who_needs_it"><h2>Who needs it?</h2><div class="ulist"><ul><li><p>PCI-DSS Compliance</p></li><li><p>HIPAA Compliance</p></li><li><p>SSAE Compliance</p></li><li><p>gRPC Functionality</p></li></ul></div>
+<div class="imageblock" style=""><img src="images/security.jpg" alt="Security"></div></section><section id="issues_with_end_to_end_tls"><h2>Issues with End to End TLS</h2><div class="ulist"><ul><li><p>Certificate Generation</p><div class="ulist"><ul><li><p>Especially in dynamic environments</p></li></ul></div></li><li><p>File Storage</p><div class="ulist"><ul><li><p>Configuration files, and mounting certificates</p></li></ul></div></li><li><p>DNS records</p><div class="ulist"><ul><li><p>For certificate common names, and backend requests</p></li></ul></div></li></ul></div></section></section>
+<section><section id="demo_overview_diagram" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Demo Overview Diagram</h2><div class="paragraph"><p>This is what I will be showing with the demo</p></div><div class="imageblock" style=""><img src="images/Demo-Overview.png" alt="Demo"></div></section><section id="goals_of_demo" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Goals of Demo</h2><div class="olist arabic"><ol class="arabic"><li><p>No TLS Security disabled</p></li><li><p>No TLS Verification disabled</p></li><li><p>No Configuration files</p></li><li><p>No Manual Certificate file management (Outside of trusting the root)</p></li></ol></div></section><section id="parts_of_a_tls_connection" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Parts of a TLS Connection</h2><div class="ulist"><ul><li><p>Connection Request is made</p></li><li><p>Certificate is returned:</p><div class="ulist"><ul><li><p>Hostname Validation</p></li><li><p>Trust Chain Validation</p></li></ul></div></li><li><p>Then request is sent</p></li></ul></div></section></section>
+<section><section id="hostname_validation"><h2>Hostname Validation</h2><div class="ulist"><ul><li><p>Verifies the CN of the certificate matches the request</p><div class="ulist"><ul><li><p>Easy to ignore</p></li><li><p>If ignored, any public certificate will work</p></li><li><p>This validation is important to prevent MITM attacks</p></li></ul></div></li></ul></div></section><section id="problems_with_hostname_validation_in_kubernetes"><h2>Problems with Hostname Validation in Kubernetes</h2><div class="ulist"><ul><li><p>You don&#8217;t know the Host/IP Combo in advance</p><div class="ulist"><ul><li><p>How do you generate certificates?</p></li></ul></div></li><li><p>Backend proxied requests don&#8217;t have the same host as the main request for validation</p><div class="ulist"><ul><li><p>What CN do you use?</p></li></ul></div></li></ul></div></section></section>
+<section><section id="trust_validation" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Trust Validation</h2><div class="ulist"><ul><li><p>Verifying that the certificate is signed by a trusted authority</p><div class="ulist"><ul><li><p>Easy to Ignore</p></li><li><p>Infamous "Self Signed Certs"</p></li><li><p>If ignored, any certificate matching the request name will work</p></li><li><p>This validation is important to prevent MITM attacks</p></li></ul></div></li></ul></div></section><section id="problems_with_trust_validation_in_kubernetes" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Problems with Trust Validation in Kubernetes</h2><div class="ulist"><ul><li><p>CA Certificates are hard to manage, and shouldn&#8217;t be distributed</p></li><li><p>Intermediate certificates need to be rotated</p></li><li><p>Generating/Signing certificates is error prone/finicky</p></li></ul></div></section></section>
+<section><section id="what_is_the_solution"><h2>What is the solution?</h2><div class="imageblock" style=""><img src="images/never-send-a-human.jpg" alt="Agent" height="400"></div></section><section id="handle_everything_programmatically"><h2>Handle Everything Programmatically</h2><div class="ulist"><ul><li><p>Dynamically generate what you need, when you need it</p></li><li><p>Have a Root CA</p><div class="ulist"><ul><li><p>Generated, and stored for safe keeping</p></li><li><p>Used only for signing intermediates</p></li></ul></div></li><li><p>Use intermediates for all day-to-day signing</p></li></ul></div></section><section id="how_are_we_going_to_achieve_this"><h2>How are we going to achieve this?</h2><div class="ulist"><ul><li><p>Two parts:</p><div class="ulist"><ul><li><p>Front End (Client facing) TLS</p><div class="ulist"><ul><li><p>Boulder</p></li></ul></div></li><li><p>Back End (Pod Facing) TLS</p><div class="ulist"><ul><li><p>MiniCA</p></li></ul></div></li></ul></div></li></ul></div></section><section id="demo_script"><h2>Demo Script</h2><div class="ulist"><ul><li><p>Generates Certificates</p><div class="ulist"><ul><li><p>Root CA</p></li><li><p>Intermediates</p></li><li><p>Browser bundle for importing to client trust</p></li></ul></div></li><li><p>Bakes intermediates into images (Root also in case of Boulder)</p></li></ul></div></section></section>
+<section><section id="why_use_boulder" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Why use Boulder?</h2><div class="ulist"><ul><li><p>Dynamic certificate generation</p></li><li><p>Runs in Docker</p></li><li><p>Complies with ACME spec</p></li><li><p>Leverage Træfik&#8217;s ACME client</p></li></ul></div><div class="imageblock" style=""><img src="images/boulder.jpg" alt="Boulder"></div></section><section id="our_demo_boulder_image" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Our Demo Boulder Image</h2><div class="ulist"><ul><li><p>We remap duplicate services to avoid portmapping issues in kubernetes</p><div class="ulist"><ul><li><p>VA, SA, Publisher, etc</p></li></ul></div></li><li><p>We mount our custom root + intermediate certs (Baked in)</p></li><li><p>Now we can issue certificates signed with our trust chain</p></li></ul></div></section></section>
+<section><section id="why_use_minica"><h2>Why use MiniCA?</h2><div class="ulist"><ul><li><p>Dynamic certificate generation</p></li><li><p>Written by a member of the LetsEncrypt Team</p></li><li><p>Can use our intermediate to sign certificates</p></li><li><p>Runs in Docker</p></li><li><p>Can run in our pod after the IP and Hostname have been assigned by the kubernetes API</p></li></ul></div></section><section id="our_demo_minica_image"><h2>Our Demo MiniCA Image</h2><div class="ulist"><ul><li><p>Runs as an init container, and generates our certificates using the downward API</p></li><li><p>Stores the issued certificates in a volume</p></li><li><p>This volume is then mounted and usable by other containers in our pod</p></li><li><p>The signing keys are not available once the init container is gone</p></li><li><p>IP SANs are generated, so the certs are valid for the pod IP</p></li></ul></div></section></section>
+<section><section id="trfik_glue" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Træfik Glue</h2><div class="ulist"><ul><li><p>Træfik is the glue that binds these components together</p></li><li><p>We add our intermediate to the trust store in the Træfik image</p><div class="ulist"><ul><li><p>We bake it in, so we don&#8217;t have to manage files</p></li><li><p>It can also be added as a separate file, and specified via CLI arg</p></li></ul></div></li><li><p>Træfik will connect to boulder, and will use generated frontend certs</p></li><li><p>Træfik will be able to use trusted certificates to connect to backend pod IPs</p></li></ul></div></section><section id="benifits" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Benifits</h2><div class="ulist"><ul><li><p>No certificate files + keys floating around</p></li><li><p>No configuration files floating around</p></li><li><p>MiniCA init container can be use on any application</p></li><li><p>Unlimited (in theory) scaling</p></li></ul></div></section></section>
+<section id="demo"><h2>DEMO</h2></section>
+<section id="adapting_for_production" data-background-color="rgb(226, 226, 226)" data-state="invert"><h2>Adapting for Production</h2><div class="ulist"><ul><li><p>LetsEncrypt already works for frontend certificate generation in production</p></li><li><p>Using MiniCA for internal generation is production-ready</p><div class="ulist"><ul><li><p>Using a custom trust chain is completely production acceptable, assuming:</p><div class="ulist"><ul><li><p>Roots are protected</p></li><li><p>Roots are stored for safe keeping</p></li><li><p>Intermediates are issued for a year or so</p></li><li><p>Leaf certificates are issued for a smaller (90 day) lifetime</p></li></ul></div></li></ul></div></li></ul></div></section>
+<section id="thank_you"><h2>Thank You!</h2></section></div></div><script src="./reveal.js/lib/js/head.min.js"></script><script src="./reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Set a per-slide timing for speaker notes, null means none
+  defaultTiming: null,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Randomizes the order of slides each time the presentation loads
+  shuffle: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Flags if we should show a help overlay when the questionmark
+  // key is pressed
+  help: true,
+  // Flags if speaker notes should be visible to all viewers
+  showNotes: false,
+  // Global override for autolaying embedded media (video/audio/iframe)
+  // - null: Media will only autoplay if data-autoplay is present
+  // - true: All media will autoplay, regardless of individual setting
+  // - false: No media will autoplay, regardless of individual setting
+  autoPlayMedia: null,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 1280,
+  height: 800,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: './reveal.js/plugin/zoom-js/zoom.js', async: true },
+      { src: './reveal.js/plugin/notes/notes.js', async: true }
+  ]
+});</script></body></html>
