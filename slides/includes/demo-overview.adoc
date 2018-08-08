@@ -1,0 +1,15 @@
+[{invert}]
+= Demo Overview Diagram
+
+This is what I will be showing with the demo
+
+image::Demo-Overview.png[Demo]
+
+[{invert}]
+== Parts of a TLS Connection
+
+* Connection Request is made
+* Certificate is returned:
+** Hostname Validation
+** Trust Chain Validation
+* Then request is sent

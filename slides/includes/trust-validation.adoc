@@ -1,0 +1,15 @@
+[{invert}]
+= Trust Validation
+
+* Verifying that the certificate is signed by a trusted authority
+** Easy to Ignore
+** Infamous "Self Signed Certs"
+** If ignored, any certificate matching the request name will work
+** This validation is important to prevent MITM attacks
+
+[{invert}]
+== Problems with Trust Validation in Kubernetes
+
+* CA Certificates are hard to manage, and shouldn't be distributed
+* Intermediate certificates need to be rotated
+* Generating/Signing certificates is error prone/finicky

@@ -1,0 +1,13 @@
+= Hostname Validation
+
+* Verifies the CN of the certificate matches the request
+** Easy to ignore
+** If ignored, any public certificate will work
+** This validation is important to prevent MITM attacks
+
+== Problems with Hostname Validation in Kubernetes
+
+* You don't know the Host/IP Combo in advance
+** How do you generate certificates?
+* Backend proxied requests don't have the same host as the main request for validation
+** What CN do you use?

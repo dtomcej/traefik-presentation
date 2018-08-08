@@ -1,0 +1,11 @@
+= What is the solution?
+
+image::never-send-a-human.jpg["Agent",height=400]
+
+== Handle Everything Programmatically
+
+* Dynamically generate what you need, when you need it
+* Have a Root CA
+** Generated, and stored for safe keeping
+** Used only for signing intermediates
+* Use intermediates for all day-to-day signing
